@@ -1,3 +1,4 @@
+// src/App.js
 import React, { useState } from 'react';
 import Dashboard from './components/Dashboard';
 import Activities from './components/Activities';
@@ -11,20 +12,69 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [stars, setStars] = useState(0);
   const [experience, setExperience] = useState(0);
+  const [bgColor, setBgColor] = useState('#1a3f2a'); // Cor de fundo padrão
+
+  const getLevel = (experience) => {
+    let level = 1; // Começa no nível 1
+    let requiredExperience = 100; // Experiência necessária para o nível 2
+
+    while (experience >= requiredExperience) {
+      level++;
+      experience -= requiredExperience;
+
+      // Aumenta a experiência necessária a cada nível
+      if (level < 100) {
+        requiredExperience += 50 + (level - 1) * 50; // Aumenta 50 para cada nível
+      }
+    }
+
+    return level;
+  };
+
+  const getExperienceToNextLevel = (level) => {
+    let requiredExperience = 100; // Começa com 100 para o nível 2
+
+    for (let i = 1; i < level; i++) {
+      requiredExperience += 50 + (i - 1) * 50; // Aumenta 50 para cada nível
+    }
+
+    return requiredExperience; // Retorna a experiência necessária para o próximo nível
+  };
+
+  const level = getLevel(experience);
+  const experienceToNextLevel = getExperienceToNextLevel(level + 1); // Próximo nível
+  const progress = (experience / experienceToNextLevel) * 100; // Cálculo da porcentagem
+
+  const resetLevels = () => {
+    setExperience(0); // Reseta a experiência
+    setStars(0); // Opcional: também pode zerar as estrelas se desejado
+  };
 
   const renderComponent = () => {
     switch (currentComponent) {
       case 'dashboard':
-        return <Dashboard stars={stars} experience={experience} />;
-      case 'activities':
         return (
-          <Activities 
-            setStars={setStars} 
-            setExperience={setExperience} 
-            stars={stars} 
-            experience={experience} 
+          <Dashboard
+            stars={stars}
+            experience={experience}
+            level={level}
+            progress={progress}
+            resetLevels={resetLevels} // Passa a função de resetar para o Dashboard
           />
         );
+      case 'activities':
+        return (
+          <Activities
+            setStars={setStars}
+            setExperience={setExperience}
+            stars={stars}
+            experience={experience}
+          />
+        );
+      case 'profile':
+        return <Profile />; // Renderiza o componente de perfil aqui
+      case 'settings':
+        return <Settings setBgColor={setBgColor} />; // Passa a função para mudar a cor para Settings
       default:
         return <Login setCurrentComponent={setCurrentComponent} setIsLoggedIn={setIsLoggedIn} />;
     }
@@ -34,6 +84,9 @@ function App() {
     setIsLoggedIn(false);
     setCurrentComponent('login');
   };
+
+  // Define a cor de fundo do body com base no estado bgColor
+  document.body.style.backgroundColor = bgColor;
 
   return (
     <div className="container">
@@ -78,20 +131,20 @@ function Login({ setCurrentComponent, setIsLoggedIn }) {
       <form onSubmit={handleLogin}>
         <div>
           <label>Email:</label>
-          <input 
-            type="email" 
-            value={email} 
-            onChange={(e) => setEmail(e.target.value)} 
-            required 
+          <input
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
           />
         </div>
         <div>
           <label>Senha:</label>
-          <input 
-            type="password" 
-            value={password} 
-            onChange={(e) => setPassword(e.target.value)} 
-            required 
+          <input
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
           />
         </div>
         <button type="submit">Entrar</button>

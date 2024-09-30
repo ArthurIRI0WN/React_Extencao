@@ -12,6 +12,8 @@ function Activities({ setStars, setExperience, stars, experience }) {
     { id: 7, title: 'Preparar uma refeição saudável', completed: false },
     { id: 8, title: 'Escrever um diário', completed: false },
     { id: 9, title: 'Desafio diário', completed: false },
+    { id: 10, title: 'Higiene Bucal', completed: false },
+    { id: 11, title: 'Banho', completed: false },
   ]);
 
   const handleCompleteActivity = (id) => {
@@ -21,6 +23,15 @@ function Activities({ setStars, setExperience, stars, experience }) {
     setActivities(updatedActivities);
     setStars(prevStars => prevStars + 1); // Adiciona 1 estrela por atividade completada
     setExperience(prevExperience => prevExperience + 10); // Adiciona 10 pontos de experiência
+  };
+
+  const handleClearActivities = () => {
+    const clearedActivities = activities.map(activity => ({
+      ...activity,
+      completed: false, // Redefine todas as atividades para não completadas
+    }));
+    setActivities(clearedActivities);
+    // A experiência permanece inalterada
   };
 
   return (
@@ -36,6 +47,7 @@ function Activities({ setStars, setExperience, stars, experience }) {
           </li>
         ))}
       </ul>
+      <button onClick={handleClearActivities}>Limpar Atividades</button>
     </div>
   );
 }

@@ -44,3 +44,13 @@ input {
   border-radius: 5px;
   width: calc(100% - 22px); /* Ajusta a largura para caber dentro do contêiner */
 }
+
+/* Adicione isso ao seu CSS existente */
+button.clear {
+  background-color: #e57373; /* Vermelho para indicar uma ação de limpar */
+}
+
+button.clear:hover {
+  background-color: #c62828; /* Cor do botão ao passar o mouse */
+}
+
