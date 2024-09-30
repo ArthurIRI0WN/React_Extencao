@@ -1,38 +1,46 @@
-.App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: #1a3f2a; /* Verde escuro */
+  color: white; /* Texto branco */
   display: flex;
-  flex-direction: column;
-  align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  align-items: center;
+  height: 100vh; /* Altura total da tela */
 }
 
-.App-link {
-  color: #61dafb;
+.container {
+  text-align: center; /* Centraliza o texto */
+  width: 100%;
+  max-width: 400px; /* Limita a largura para simular uma tela de celular */
+  padding: 20px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+  border-radius: 10px; /* Bordas arredondadas */
+  background-color: rgba(26, 63, 42, 0.9); /* Fundo levemente transparente */
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+nav {
+  margin: 20px 0; /* Margem entre o nav e o conteúdo */
+}
+
+button {
+  background-color: #2e7d32; /* Verde para botões */
+  color: white; /* Texto branco nos botões */
+  border: none;
+  border-radius: 5px; /* Bordas arredondadas nos botões */
+  padding: 10px 15px; /* Padding nos botões */
+  cursor: pointer; /* Cursor de mão para interatividade */
+  margin: 5px; /* Espaçamento entre os botões */
+}
+
+button:hover {
+  background-color: #1b5e20; /* Cor do botão ao passar o mouse */
+}
+
+input {
+  padding: 10px;
+  margin: 10px 0; /* Margem vertical */
+  border: none;
+  border-radius: 5px;
+  width: calc(100% - 22px); /* Ajusta a largura para caber dentro do contêiner */
 }
